@@ -58,7 +58,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 ## 参考URL
 
-本リポジトリ内のコードは、下記記事内のコードをほぼ<span style="color: gray; ">~~パクリ~~</span>参考にしています。
+本リポジトリ内のコードは、下記記事内のコードを<span style="color: gray; ">~~ほぼパクリ~~</span>参考にしています。
 
 [Spring Data JDBCを拡張してみる その1 - クエリを受け取れるメソッドを増やす - 谷本 心 in せろ部屋](https://cero-t.hatenadiary.jp/entry/2022/12/26/051831)
 
