@@ -18,7 +18,7 @@ import com.github.mygreen.splate.SqlTemplateEngine;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class SplateQueryLookupStrategy implements QueryLookupStrategy {
+class SplateQueryLookupStrategy implements QueryLookupStrategy {
 
 	private final JdbcOperations jdbcOperations;
 	private final RelationalMappingContext context;

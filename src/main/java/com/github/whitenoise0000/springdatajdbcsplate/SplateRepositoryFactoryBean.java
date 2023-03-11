@@ -25,6 +25,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.util.Assert;
 
 /**
+ * Spring Data JDBC向けSplate(2Way-SQL)ラッパー用FactoryBean.
+ * 
  * @see {@link JdbcRepositoryFactoryBean}
  */
 public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID extends Serializable>

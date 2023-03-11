@@ -2,10 +2,11 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.4'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id 'com.coditory.manifest' version '0.2.6'
 }
 
 group = 'com.github.whitenoise0000'
-version = '0.0.1'
+version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
 configurations {
@@ -21,11 +22,25 @@ repositories {
 dependencies {
   // 2-way SQLパーサー
 	implementation 'com.github.mygreen:splate:0.3'
+
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
   annotationProcessor 'org.projectlombok:lombok'
 
   testImplementation 'com.h2database:h2:2.1.214'
   testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+
+bootJar {
+  enabled = false // 実行可能Jarを作成しない
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
+}
+
+javadocJar {
 }
 
 tasks.named('test') {

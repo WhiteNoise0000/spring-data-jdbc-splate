@@ -19,7 +19,7 @@ import com.github.mygreen.splate.SqlTemplateEngine;
  * 
  * @author WhiteNoise0000
  */
-public class SqlateQuery implements RepositoryQuery {
+class SqlateQuery implements RepositoryQuery {
 	private Splate annotation;
 
 	private JdbcOperations jdbcOperations;
@@ -43,7 +43,8 @@ public class SqlateQuery implements RepositoryQuery {
 
 	@Override
 	public Object execute(Object[] parameters) {
-		// TODO SQLパラメータ指定
+
+		// SQLパラメータ指定
 		SqlTemplate template = query.get();
 		ProcessResult processResult = template.process(getContext(parameters));
 		Object[] params = processResult.getParameters().toArray();

@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 import com.github.mygreen.splate.SqlTemplateEngine;
 
 /**
- * Splate(2-WaySQL)クエリ.
+ * Splate(2Way-SQL)クエリ.
  *
  * @author WhiteNoise0000
  */

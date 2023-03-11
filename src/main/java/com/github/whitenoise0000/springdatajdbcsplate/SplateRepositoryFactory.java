@@ -15,7 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 
 import com.github.mygreen.splate.SqlTemplateEngine;
 
-public class SplateRepositoryFactory extends JdbcRepositoryFactory {
+class SplateRepositoryFactory extends JdbcRepositoryFactory {
 
 	private final RelationalMappingContext context;
 	private final JdbcConverter converter;
