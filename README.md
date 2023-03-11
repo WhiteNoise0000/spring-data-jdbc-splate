@@ -15,7 +15,7 @@ Spring Data JDBCを拡張し、2Way-SQL実行用の追加アノテーション�
 
 [テストケース](src/test/java/com/github/whitenoise0000/springdatajdbcsplate)も参照してください。
 
-- @EnableJdbcRepositoriesの拡張ポイントに下記
+- `@EnableJdbcRepositories`の拡張ポイントに下記
 
 ```java
 @SpringBootApplication
@@ -27,7 +27,7 @@ public class TestApplication {
 }
 ```
 
-- Repositoryクラスでメソッドを定義し、「@Splate」アノテーションで2-waySQLのパスを指定  
+- Repositoryクラスでメソッドを定義し、`@Splate`アノテーションで2-waySQLのパスを指定  
 なお、引数名と2Way-SQL内のパラメータ名を一致させてください。
 
 ```java
@@ -53,7 +53,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 - splateの[基本的な使い方](https://mygreen.github.io/splate/howtouse.html)のうち、JavaBeanによるパラメータ指定が未サポートです。
 
-- 1レコード取得の戻り値型は、TではなくOptional<T>を指定してください。  
+- 1レコード取得の戻り値型は、`T`ではなく`Optional<T>`を指定してください。  
 →現在のバージョンでは、Tのみ指定ではエラーが発生します。
 
 ## 参考URL
