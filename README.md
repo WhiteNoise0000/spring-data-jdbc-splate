@@ -49,7 +49,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 ## 注意／制約／既知の不具合
 
-- 基礎的なテストケースのみ実施しており、バリエーション等の検討不足による不具合がまだ潜在していると思われます。
+- 基礎的なテストケースのみ実施しており、バリエーション検討不足による<span style="color: red; ">不具合がまだ潜在している</span>と思われます。
 
 - splateの[基本的な使い方](https://mygreen.github.io/splate/howtouse.html)のうち、JavaBeanによるパラメータ指定が未サポートです。
 
@@ -57,6 +57,8 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 →現在のバージョンでは、Tのみ指定ではエラーが発生します。
 
 ## 参考URL
+
+本リポジトリ内のコードは、下記記事内のコードをほぼ<span style="color: gray; ">~~パクリ~~</span>参考にしています。
 
 [Spring Data JDBCを拡張してみる その1 - クエリを受け取れるメソッドを増やす - 谷本 心 in せろ部屋](https://cero-t.hatenadiary.jp/entry/2022/12/26/051831)
 
