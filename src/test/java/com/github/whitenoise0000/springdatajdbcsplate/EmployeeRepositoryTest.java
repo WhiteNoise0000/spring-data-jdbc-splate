@@ -25,11 +25,24 @@ class EmployeeRepositoryTest {
 	}
 
 	@Test
-	void testSplplateQuery() {
+	void queryForList() {
 		// List型戻り値
 		assertEquals(target.queryForList(1700, 2000).size(), 3);
 		assertEquals(target.queryForList(1701, 1999).size(), 1);
 		assertEquals(target.queryForList(null, 1999).size(), 2);
 		assertEquals(target.queryForList(2000, null).size(), 1);
+	}
+	
+	// TODO List以外のテストケース実装
+	@Test
+	void queryForStream() {
+		// Stream戻り値
+		assertEquals(target.queryForStream(1700, 2000).count(), 3);
+		assertEquals(target.queryForList(1701, 1999).get(0).getName(), "Suzuki");
+	}
+	
+	@Test
+	void querySingle() {
+		assertEquals(target.querySingle(2L).get().getName(), "Sato");
 	}
 }

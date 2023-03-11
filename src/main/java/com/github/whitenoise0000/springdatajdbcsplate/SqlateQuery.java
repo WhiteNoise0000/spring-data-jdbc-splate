@@ -1,9 +1,5 @@
 package com.github.whitenoise0000.springdatajdbcsplate;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Stream;
-
 import org.springframework.data.repository.query.QueryMethod;
 import org.springframework.data.repository.query.RepositoryQuery;
 import org.springframework.data.util.Lazy;
@@ -52,7 +48,6 @@ public class SqlateQuery implements RepositoryQuery {
 		ProcessResult processResult = template.process(getContext(parameters));
 		Object[] params = processResult.getParameters().toArray();
 		String sql = processResult.getSql();
-		Class<?> retType = queryMethod.getReturnedObjectType();
 
 		// DML(INSERT/UPDATE/DELETE)の場合
 		if (sql.startsWith("INSERT") || sql.startsWith("UPDATE") || sql.startsWith("DELETE")) {
@@ -61,17 +56,12 @@ public class SqlateQuery implements RepositoryQuery {
 
 		// SELECTの場合
 		// →戻り型に応じた処理結果を返却
-		if (List.class.equals(retType)) {
+		if (queryMethod.isCollectionQuery() || queryMethod.isStreamQuery()) {
 			return jdbcOperations.query(sql, rowMapper, params);
+		} else {
+			Object obj = jdbcOperations.queryForObject(sql, rowMapper, params);
+			return obj;
 		}
-		else if (Stream.class.equals(retType)) {
-			return jdbcOperations.queryForStream(sql, rowMapper, params);
-		}
-		else if (Map.class.equals(retType)) {
-			return jdbcOperations.queryForMap(sql, params);
-		}
-		// その他戻り値型は、1件取得の前提で扱う
-		return jdbcOperations.queryForObject(processResult.getSql(), rowMapper, params);
 	}
 
 	@Override

@@ -6,7 +6,6 @@ import org.springframework.data.jdbc.repository.config.EnableJdbcRepositories;
 
 @SpringBootApplication
 @EnableJdbcRepositories(repositoryFactoryBeanClass = SplateRepositoryFactoryBean.class)
-//@EnableJdbcRepositories
 public class TestApplication {
 
 	public static void main(String[] args) {
