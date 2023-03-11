@@ -49,12 +49,14 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 ## 注意／制約／既知の不具合
 
-- 基礎的なテストケースのみ実施しており、バリエーション検討不足による<span style="color: red; ">不具合がまだ潜在している</span>と思われます。
+- 最低限のテストケースのみであり、バリエーション検討不足による<span style="color: red; ">不具合がまだ潜在している</span>と思われます。
 
-- splateの[基本的な使い方](https://mygreen.github.io/splate/howtouse.html)のうち、JavaBeanによるパラメータ指定が未サポートです。
+- splateの[基本的な使い方](https://mygreen.github.io/splate/howtouse.html)のうち、JavaBeanによるパラメータ指定は未サポートです。
 
 - 1レコード取得の戻り値型は、`T`ではなく`Optional<T>`を指定してください。  
 →現在のバージョンでは、Tのみ指定ではエラーが発生します。
+
+- OSSライブラリ公開の経験等無く、様々なお作法に疎いので参考にとどめてください。
 
 ## 参考URL
 
@@ -63,3 +65,5 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 [Spring Data JDBCを拡張してみる その1 - クエリを受け取れるメソッドを増やす - 谷本 心 in せろ部屋](https://cero-t.hatenadiary.jp/entry/2022/12/26/051831)
 
 [Spring Data JDBCを拡張してみる その2 - アノテーションでクエリを受け取る - 谷本 心 in せろ部屋](https://cero-t.hatenadiary.jp/entry/2022/12/27/071859)
+
+[Proof of Concept - Spring Data SQL](https://github.com/cero-t/poc-data-sql)

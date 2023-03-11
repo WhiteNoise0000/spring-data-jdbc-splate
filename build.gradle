@@ -40,7 +40,8 @@ java {
     withJavadocJar()
 }
 
-javadocJar {
+manifest {
+    buildAttributes = false
 }
 
 tasks.named('test') {
