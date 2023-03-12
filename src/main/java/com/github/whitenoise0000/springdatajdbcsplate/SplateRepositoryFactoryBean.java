@@ -27,7 +27,7 @@ import org.springframework.util.Assert;
 /**
  * Spring Data JDBC向けSplate(2Way-SQL)ラッパー用FactoryBean.
  * 
- * @see {@link org.springframework.data.jdbc.repository.support.JdbcRepositoryFactoryBean}
+ * @see org.springframework.data.jdbc.repository.support.JdbcRepositoryFactoryBean
  */
 public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID extends Serializable>
 		extends TransactionalRepositoryFactoryBeanSupport<T, S, ID> implements ApplicationEventPublisherAware {
