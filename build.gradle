@@ -21,9 +21,10 @@ repositories {
 
 dependencies {
   // 2-way SQLパーサー
-	implementation 'com.github.mygreen:splate:0.3'
+  implementation 'com.github.mygreen:splate:0.3'
+  implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+  compileOnly 'org.projectlombok:lombok'
   annotationProcessor 'org.projectlombok:lombok'
 
   testImplementation 'com.h2database:h2:2.1.214'
