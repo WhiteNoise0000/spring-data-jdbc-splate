@@ -15,16 +15,18 @@ class EmployeeRepositoryTest {
 	private EmployeeRepository target;
 
 	@Test
-	void testFindById() {
+	void testDefaultFindById() {
 		// デフォルトメソッドが引き続き使えること
 		assertEquals(target.findById(1L).get().getName(), "Suzuki");
 	}
 
 	@Test
-	void testCount() {
+	void testDefaultCount() {
 		// デフォルトメソッドが引き続き使えること
 		assertEquals(target.count(), 3);
 	}
+
+	// ↓↓splateテスト↓↓
 
 	@Test
 	void testQueryForList() {
@@ -44,9 +46,16 @@ class EmployeeRepositoryTest {
 
 	@Test
 	void testQuerySingle() {
-		// 1件取得
+		// 1件取得(Optionalあり)
 		assertEquals(target.querySingle(2L).get().getName(), "Sato");
 	}
+
+	// FIXME Issue #2
+//	@Test
+//	void testQuerySingle2() {
+//		// 1件取得(Optionalなし)
+//		assertEquals(target.querySingle2(2L).getName(), "Sato");
+//	}
 
 	@Test
 	void testInsert() {
@@ -59,6 +68,12 @@ class EmployeeRepositoryTest {
 		assertEquals(ret.get().getId(), 4L);
 		assertEquals(ret.get().getName(), "Test");
 		assertEquals(ret.get().getSalary(), 3000);
+	}
+
+	@Test
+	void testCount() {
+		// count
+		assertEquals(target.sampleCount(1700, 2000), 3);
 	}
 
 	// TODO テストケース充実

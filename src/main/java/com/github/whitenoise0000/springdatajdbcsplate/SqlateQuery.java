@@ -57,11 +57,18 @@ class SqlateQuery implements RepositoryQuery {
 
 		// SELECTの場合
 		// →戻り型に応じた処理結果を返却
-		if (queryMethod.isCollectionQuery() || queryMethod.isStreamQuery()) {
+		if (queryMethod.isCollectionQuery() || queryMethod.isStreamQuery() || queryMethod.isPageQuery()
+				|| queryMethod.isSliceQuery()) {
+			// 複数件返却
 			return jdbcOperations.query(sql, rowMapper, params);
 		} else {
-			Object obj = jdbcOperations.queryForObject(sql, rowMapper, params);
-			return obj;
+			// 1件返却
+			Class<?> retType = queryMethod.getReturnedObjectType();
+			if (queryMethod.isQueryForEntity()) {
+				return jdbcOperations.queryForObject(sql, rowMapper, params);
+			}
+			// プリミティブ型、および独自DTOなど(1件返却)
+			return jdbcOperations.queryForObject(sql, retType, params);
 		}
 	}
 
