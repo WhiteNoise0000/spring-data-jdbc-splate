@@ -53,8 +53,8 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 - splateの[基本的な使い方](https://mygreen.github.io/splate/howtouse.html)のうち、JavaBeanによるパラメータ指定は未サポートです。
 
-- 1レコード取得の戻り値型は、`T`ではなく`Optional<T>`を指定してください。  
-→現在のバージョンでは、Tのみ指定ではエラーが発生します。
+- 1レコード取得の戻り値型に`Optional<T>`ではなく`T`を指定する場合、クラス可視性はpublicとしてください。  
+→```T```のみ指定かつ可視性がpublicではない場合、JDKプロクシ内でモジュール起因のエラーが発生します。
 
 - OSSライブラリ公開の経験等無く、様々なお作法に疎いので参考にとどめてください。
 

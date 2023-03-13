@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(of = { "id" })
-class Employee {
+public class Employee {
 	@Id
 	private final long id;
 	private final String name;

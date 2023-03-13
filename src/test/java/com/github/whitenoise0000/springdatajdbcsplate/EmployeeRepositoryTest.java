@@ -50,12 +50,11 @@ class EmployeeRepositoryTest {
 		assertEquals(target.querySingle(2L).get().getName(), "Sato");
 	}
 
-	// FIXME Issue #2
-//	@Test
-//	void testQuerySingle2() {
-//		// 1件取得(Optionalなし)
-//		assertEquals(target.querySingle2(2L).getName(), "Sato");
-//	}
+	@Test
+	void testQuerySingle2() {
+		// 1件取得(Optionalなし)
+		assertEquals(target.querySingle2(2L).getName(), "Sato");
+	}
 
 	@Test
 	void testInsert() {
