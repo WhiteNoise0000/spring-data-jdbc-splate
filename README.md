@@ -1,3 +1,4 @@
+[![Java CI with Gradle](https://github.com/WhiteNoise0000/spring-data-jdbc-splate/actions/workflows/gradle.yml/badge.svg)](https://github.com/WhiteNoise0000/spring-data-jdbc-splate/actions/workflows/gradle.yml)
 # spring-data-jdbc-splate
 ## Spring Data JDBC用のsplate(2Way-SQL)ラッパー
 
