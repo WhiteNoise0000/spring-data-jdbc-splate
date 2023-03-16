@@ -5,7 +5,7 @@ plugins {
 	id 'com.coditory.manifest' version '0.2.6'
 }
 
-group = 'com.github.whitenoise0000'
+group = 'io.github.whitenoise0000'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
