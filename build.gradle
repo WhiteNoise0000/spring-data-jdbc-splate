@@ -6,7 +6,7 @@ plugins {
   id 'maven-publish'
 }
 
-group = 'com.github.whitenoise0000'
+group = 'io.github.whitenoise0000'
 version = '0.0.1'
 sourceCompatibility = '17'
 
@@ -61,7 +61,7 @@ tasks.named('test') {
 publishing {
   publications {
     mavenJava(MavenPublication) {
-      artifactId = 'com.github.whitenoise0000'
+      artifactId = 'spring-data-jdbc-splate'
       pom {
         name = 'spring-data-jdbc-splate'
         description = 'splate(2Way-SQL library) wrapper for Spring Data JDBC'
