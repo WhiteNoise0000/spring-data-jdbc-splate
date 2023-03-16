@@ -1,12 +1,13 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.0.4'
-	id 'io.spring.dependency-management' version '1.1.0'
-	id 'com.coditory.manifest' version '0.2.6'
+  id 'java'
+  id 'org.springframework.boot' version '3.0.4'
+  id 'io.spring.dependency-management' version '1.1.0'
+  id 'com.coditory.manifest' version '0.2.6'
+  id 'maven-publish'
 }
 
-group = 'io.github.whitenoise0000'
-version = '0.0.1-SNAPSHOT'
+group = 'com.github.whitenoise0000'
+version = '0.0.1'
 sourceCompatibility = '17'
 
 configurations {
@@ -43,10 +44,55 @@ java {
     withJavadocJar()
 }
 
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
 manifest {
     buildAttributes = false
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+publishing {
+  publications {
+    mavenJava(MavenPublication) {
+      artifactId = 'com.github.whitenoise0000'
+      pom {
+        name = 'spring-data-jdbc-splate'
+        description = 'splate(2Way-SQL library) wrapper for Spring Data JDBC'
+        url = 'https://github.com/WhiteNoise0000/spring-data-jdbc-splate'
+        licenses {
+          license {
+            name = 'The Apache License, Version 2.0'
+            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+        developers {
+          developer {
+            id = 'WhiteNoise0000'
+            email = 'white.noise.0000@gmail.com'
+          }
+        }
+        scm {
+          connection = 'https://github.com/WhiteNoise0000/spring-data-jdbc-splate.git'
+          url = 'https://github.com/WhiteNoise0000/spring-data-jdbc-splate'
+        }
+      }
+    }
+  }
+  repositories {
+    maven {
+      name = "OSSRH"
+      url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+      credentials {
+        username = System.getenv("MAVEN_USERNAME")
+        password = System.getenv("MAVEN_PASSWORD")
+      }
+    }
+  }
 }

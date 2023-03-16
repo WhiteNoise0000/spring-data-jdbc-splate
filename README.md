@@ -14,6 +14,15 @@ Spring Data JDBCを拡張し、2Way-SQL実行用の追加アノテーション�
 
 ## 使い方
 
+- 依存関係を追加
+
+```gradle
+dependencies {
+  implementation 'io.github.whitenoise0000:spring-data-jdbc-splate:0.0.1'
+}
+```
+
+
 [テストケース](src/test/java/test)も参照してください。
 
 - `@EnableJdbcRepositories`の拡張ポイントに`SplateRepositoryFactoryBean`を指定
