@@ -27,4 +27,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 	@Splate("/sql/sampleCount.sql")
 	long sampleCount(Integer salaryMin, Integer salaryMax);
+	
+	// 標準クエリでTを直接返却
+	Employee findByName(String name);
 }

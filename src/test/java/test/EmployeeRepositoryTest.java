@@ -25,6 +25,13 @@ class EmployeeRepositoryTest {
 		// デフォルトメソッドが引き続き使えること
 		assertEquals(target.count(), 3);
 	}
+	
+	@Test
+	void testDefaultFindByName() {
+		// デフォルトメソッドで直接T取得
+		assertEquals(target.findByName("Suzuki").getId(), 1L);
+		assertNull(target.findByName("Nanasi"));
+	}
 
 	// ↓↓splateテスト↓↓
 
