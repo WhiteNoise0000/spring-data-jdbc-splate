@@ -1,10 +1,12 @@
-package com.github.whitenoise0000.springdatajdbcsplate;
+package test;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
 import org.springframework.data.repository.CrudRepository;
+
+import io.github.whitenoise0000.springdatajdbcsplate.Splate;
 
 public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 

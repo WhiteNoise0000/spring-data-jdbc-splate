@@ -1,4 +1,4 @@
-package com.github.whitenoise0000.springdatajdbcsplate;
+package io.github.whitenoise0000.springdatajdbcsplate;
 
 import java.util.Optional;
 

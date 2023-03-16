@@ -13,7 +13,7 @@ Spring Data JDBCを拡張し、2Way-SQL実行用の追加アノテーション�
 
 ## 使い方
 
-[テストケース](src/test/java/com/github/whitenoise0000/springdatajdbcsplate)も参照してください。
+[テストケース](src/test/java/test)も参照してください。
 
 - `@EnableJdbcRepositories`の拡張ポイントに`SplateRepositoryFactoryBean`を指定
 

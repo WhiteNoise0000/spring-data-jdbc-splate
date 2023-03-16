@@ -1,4 +1,4 @@
-package com.github.whitenoise0000.springdatajdbcsplate;
+package io.github.whitenoise0000.springdatajdbcsplate;
 
 import org.springframework.data.repository.query.QueryMethod;
 import org.springframework.data.repository.query.RepositoryQuery;

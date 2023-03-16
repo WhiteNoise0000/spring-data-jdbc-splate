@@ -1,4 +1,4 @@
-package com.github.whitenoise0000.springdatajdbcsplate;
+package test;
 
 import org.springframework.data.annotation.Id;
 

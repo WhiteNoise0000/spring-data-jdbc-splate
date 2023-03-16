@@ -1,4 +1,4 @@
-package com.github.whitenoise0000.springdatajdbcsplate;
+package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
