@@ -25,7 +25,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.util.Assert;
 
 /**
- * Spring Data JDBC向けSplate(2Way-SQL)ラッパー用FactoryBean.
+ * Spring Data JDBC向けSplate(2Way-SQL)ラッパー用FactoryBean.<br/>
+ * <a href="https://cero-t.hatenadiary.jp/entry/2022/12/26/051831">参考URL</a>でも言及あるが、
+ * {@link JdbcRepositoryFactoryBean}内のメンバ変数がprivateで隠蔽されており、
+ * サブクラスから参照不可のため苦肉の策として全コードをコピー流用している.
  * 
  * @see org.springframework.data.jdbc.repository.support.JdbcRepositoryFactoryBean
  */
@@ -66,6 +69,7 @@ public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID exte
 	@Override
 	protected RepositoryFactorySupport doCreateRepositoryFactory() {
 
+		// TODO private→protected変更時はコピー流用取りやめ
 		// ★ここだけ書き換え
 		SplateRepositoryFactory jdbcRepositoryFactory = new SplateRepositoryFactory(dataAccessStrategy, mappingContext,
 				converter, dialect, publisher, operations);
