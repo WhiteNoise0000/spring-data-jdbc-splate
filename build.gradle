@@ -42,8 +42,13 @@ java {
   withJavadocJar()
 }
 
+bootJar {
+  // bootJarは作成しない
+  enabled = false
+}
 jar {
-  archiveClassifier = '' // plainを付けない
+  // plainを付けない
+  archiveClassifier = ''
 }
 
 manifest {
