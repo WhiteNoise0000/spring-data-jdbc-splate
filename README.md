@@ -64,7 +64,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 - splateの[基本的な使い方](https://mygreen.github.io/splate/howtouse.html)のうち、JavaBeanによるパラメータ指定は未サポートです。
 
 - 1レコード取得の戻り値型に`Optional<T>`ではなく`T`を指定する場合、クラス可視性はpublicとしてください。  
-→`T`のみ指定かつ可視性がpublicではない場合、`IllegalAccessError`が発生します。これはSpring Data JDBC本体も同様です。参考：[Issue #2](issues/2)
+→`T`のみ指定かつ可視性がpublicではない場合、`IllegalAccessError`が発生します。これはSpring Data JDBC本体も同様です。参考：[Issue #2](https://github.com/WhiteNoise0000/spring-data-jdbc-splate/issues/2)
 
 - OSSライブラリ公開の経験等無く、様々なお作法に疎いので参考にとどめてください。
 
