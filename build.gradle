@@ -100,13 +100,9 @@ publishing {
   }
 }
 
-tasks.register('stuffZip', Zip) {
-    archiveBaseName = 'stuff'
-    from 'src/stuff'
-}
 signing {
     def signingKey = findProperty("signingKey")
     def signingPassword = findProperty("signingPassword")
     useInMemoryPgpKeys(signingKey, signingPassword)
-    sign stuffZip
+    sign publishing.publications.mavenJava
 }
