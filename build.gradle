@@ -93,13 +93,20 @@ publishing {
       def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots"
       url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
       credentials {
-        username = "${mavenUsername}" ?: ""
-        password = "${mavenPassword}" ?: ""
+        username = findProperty("mavenUsername")
+        password = findProperty("mavenPassword")
       }
     }
   }
 }
 
+tasks.register('stuffZip', Zip) {
+    archiveBaseName = 'stuff'
+    from 'src/stuff'
+}
 signing {
-    sign publishing.publications.mavenJava
+    def signingKey = findProperty("signingKey")
+    def signingPassword = findProperty("signingPassword")
+    useInMemoryPgpKeys(signingKey, signingPassword)
+    sign stuffZip
 }
