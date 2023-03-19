@@ -78,7 +78,6 @@ publishing {
         developers {
           developer {
             id = 'WhiteNoise0000'
-            email = 'white.noise.0000@gmail.com'
           }
         }
         scm {
