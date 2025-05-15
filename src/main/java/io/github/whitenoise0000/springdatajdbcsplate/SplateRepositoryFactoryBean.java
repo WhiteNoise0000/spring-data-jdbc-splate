@@ -1,3 +1,18 @@
+/*
+ * Copyright 2017-2025 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package io.github.whitenoise0000.springdatajdbcsplate;
 
 import java.io.Serializable;
@@ -5,10 +20,8 @@ import java.io.Serializable;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
-import org.springframework.data.jdbc.core.convert.BatchJdbcOperations;
 import org.springframework.data.jdbc.core.convert.DataAccessStrategy;
-import org.springframework.data.jdbc.core.convert.DefaultDataAccessStrategy;
+import org.springframework.data.jdbc.core.convert.DataAccessStrategyFactory;
 import org.springframework.data.jdbc.core.convert.InsertStrategyFactory;
 import org.springframework.data.jdbc.core.convert.JdbcConverter;
 import org.springframework.data.jdbc.core.convert.SqlGeneratorSource;
@@ -24,6 +37,7 @@ import org.springframework.data.repository.core.support.TransactionalRepositoryF
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.util.Assert;
 
+
 /**
  * Spring Data JDBC向けSplate(2Way-SQL)ラッパー用FactoryBean.<br/>
  * <a href="https://cero-t.hatenadiary.jp/entry/2022/12/26/051831">参考URL</a>でも言及あるが、
@@ -33,7 +47,7 @@ import org.springframework.util.Assert;
  * @see org.springframework.data.jdbc.repository.support.JdbcRepositoryFactoryBean
  */
 public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID extends Serializable>
-		extends TransactionalRepositoryFactoryBeanSupport<T, S, ID> implements ApplicationEventPublisherAware {
+		extends TransactionalRepositoryFactoryBeanSupport<T, S, ID> {
 
 	private ApplicationEventPublisher publisher;
 	private BeanFactory beanFactory;
@@ -46,8 +60,7 @@ public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID exte
 	private Dialect dialect;
 
 	/**
-	 * Creates a new {@link JdbcRepositoryFactoryBean} for the given repository
-	 * interface.
+	 * Creates a new {@link SplateRepositoryFactoryBean} for the given repository interface.
 	 *
 	 * @param repositoryInterface must not be {@literal null}.
 	 */
@@ -80,7 +93,6 @@ public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID exte
 		return jdbcRepositoryFactory;
 	}
 
-	@Autowired
 	public void setMappingContext(RelationalMappingContext mappingContext) {
 
 		Assert.notNull(mappingContext, "MappingContext must not be null");
@@ -89,7 +101,6 @@ public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID exte
 		this.mappingContext = mappingContext;
 	}
 
-	@Autowired
 	public void setDialect(Dialect dialect) {
 
 		Assert.notNull(dialect, "Dialect must not be null");
@@ -108,10 +119,8 @@ public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID exte
 	}
 
 	/**
-	 * @param queryMappingConfiguration can be {@literal null}.
-	 *                                  {@link #afterPropertiesSet()} defaults to
-	 *                                  {@link QueryMappingConfiguration#EMPTY} if
-	 *                                  {@literal null}.
+	 * @param queryMappingConfiguration can be {@literal null}. {@link #afterPropertiesSet()} defaults to
+	 *          {@link QueryMappingConfiguration#EMPTY} if {@literal null}.
 	 */
 	@Autowired(required = false)
 	public void setQueryMappingConfiguration(QueryMappingConfiguration queryMappingConfiguration) {
@@ -128,7 +137,6 @@ public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID exte
 		this.operations = operations;
 	}
 
-	@Autowired
 	public void setConverter(JdbcConverter converter) {
 
 		Assert.notNull(converter, "JdbcConverter must not be null");
@@ -166,14 +174,15 @@ public class SplateRepositoryFactoryBean<T extends Repository<S, ID>, S, ID exte
 
 						Assert.state(this.dialect != null, "Dialect is required and must not be null");
 
-						SqlGeneratorSource sqlGeneratorSource = new SqlGeneratorSource(this.mappingContext,
-								this.converter, this.dialect);
-						SqlParametersFactory sqlParametersFactory = new SqlParametersFactory(this.mappingContext,
-								this.converter, this.dialect);
-						InsertStrategyFactory insertStrategyFactory = new InsertStrategyFactory(this.operations,
-								new BatchJdbcOperations(this.operations.getJdbcOperations()), this.dialect);
-						return new DefaultDataAccessStrategy(sqlGeneratorSource, this.mappingContext, this.converter,
+						SqlGeneratorSource sqlGeneratorSource = new SqlGeneratorSource(this.mappingContext, this.converter,
+								this.dialect);
+						SqlParametersFactory sqlParametersFactory = new SqlParametersFactory(this.mappingContext, this.converter);
+						InsertStrategyFactory insertStrategyFactory = new InsertStrategyFactory(this.operations, this.dialect);
+
+						DataAccessStrategyFactory factory = new DataAccessStrategyFactory(sqlGeneratorSource, this.converter,
 								this.operations, sqlParametersFactory, insertStrategyFactory);
+
+						return factory.create();
 					});
 		}
 

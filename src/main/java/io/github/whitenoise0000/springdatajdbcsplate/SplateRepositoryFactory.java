@@ -9,9 +9,9 @@ import org.springframework.data.jdbc.repository.support.JdbcRepositoryFactory;
 import org.springframework.data.relational.core.dialect.Dialect;
 import org.springframework.data.relational.core.mapping.RelationalMappingContext;
 import org.springframework.data.repository.query.QueryLookupStrategy;
-import org.springframework.data.repository.query.QueryLookupStrategy.Key;
-import org.springframework.data.repository.query.QueryMethodEvaluationContextProvider;
+import org.springframework.data.repository.query.ValueExpressionDelegate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
+import org.springframework.lang.Nullable;
 
 import com.github.mygreen.splate.SqlTemplateEngine;
 
@@ -33,10 +33,9 @@ class SplateRepositoryFactory extends JdbcRepositoryFactory {
 	}
 
 	@Override
-	protected Optional<QueryLookupStrategy> getQueryLookupStrategy(Key key,
-			QueryMethodEvaluationContextProvider evaluationContextProvider) {
-		
-		Optional<QueryLookupStrategy> original = super.getQueryLookupStrategy(key, evaluationContextProvider);
+	protected Optional<QueryLookupStrategy> getQueryLookupStrategy(@Nullable QueryLookupStrategy.Key key,
+			ValueExpressionDelegate valueExpressionDelegate) {
+		Optional<QueryLookupStrategy> original = super.getQueryLookupStrategy(key, valueExpressionDelegate);
 		return Optional.of(new SplateQueryLookupStrategy(operations.getJdbcOperations(), context, converter,
 				original.orElseThrow(), splateEngine));
 	}
