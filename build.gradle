@@ -88,12 +88,14 @@ publishing {
   }
   repositories {
     maven {
-      def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2"
-      def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots"
+      // Central Publisher Portal OSSRH Staging API のエンドポイントを使用
+      def releasesRepoUrl = "https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/"
+      // Central Portal のスナップショットリポジトリのエンドポイントを使用
+      def snapshotsRepoUrl = "https://central.sonatype.com/repository/maven-snapshots/"
       url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
       credentials {
-        username = findProperty("mavenUsername")
-        password = findProperty("mavenPassword")
+        username = findProperty("mavenUsername") // GitHub Secrets から取得
+        password = findProperty("mavenPassword") // GitHub Secrets から取得
       }
     }
   }
