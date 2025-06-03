@@ -19,9 +19,9 @@ jobs:
       - name: Publish package
         uses: gradle/gradle-build-action@v2
         with:
-          arguments: publishToSonatype closeAndReleaseSonatypeStagingRepository
+          arguments: publishOnCentral
         env:
           ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNINGKEY }}
-          ORG_GRADLE_PROJECT_signingPassword : ${{ secrets.SIGNINGPASSWORD }}
-          ORG_GRADLE_PROJECT_mavenUsername: ${{ secrets.MAVENUSERNAME }}
-          ORG_GRADLE_PROJECT_mavenPassword:  ${{ secrets.MAVENPASSWORD }}
+          ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNINGPASSWORD }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVENUSERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVENPASSWORD }}
