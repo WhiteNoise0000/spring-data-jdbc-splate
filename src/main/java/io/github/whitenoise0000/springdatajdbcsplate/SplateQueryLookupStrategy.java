@@ -30,7 +30,7 @@ class SplateQueryLookupStrategy implements QueryLookupStrategy {
 	public RepositoryQuery resolveQuery(Method method, RepositoryMetadata metadata, ProjectionFactory factory,
 			NamedQueries namedQueries) {
 		
-		QueryMethod queryMethod = new QueryMethod(method, metadata, factory);
+		QueryMethod queryMethod = new QueryMethod(method, metadata, factory, null);
 		EntityRowMapper<?> rowMapper = new EntityRowMapper<>(
 				context.getRequiredPersistentEntity(metadata.getDomainType()), converter);
 
