@@ -20,7 +20,7 @@ Spring Data JDBC の Repository を使いつつ、長いSQLや条件分岐SQLを
 
 ```gradle
 dependencies {
-  implementation 'io.github.whitenoise0000:spring-data-jdbc-splate:0.1.1'
+  implementation 'io.github.whitenoise0000:spring-data-jdbc-splate:0.2.0'
 }
 ```
 

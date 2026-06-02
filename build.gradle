@@ -49,7 +49,7 @@ tasks.named('test') {
 }
 
 mavenPublishing {
-  coordinates('io.github.whitenoise0000', 'spring-data-jdbc-splate', '0.1.1')
+  coordinates('io.github.whitenoise0000', 'spring-data-jdbc-splate', '0.2.0')
 
   // POMファイルに記載される情報を設定
   pom {
