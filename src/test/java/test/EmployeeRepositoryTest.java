@@ -120,4 +120,70 @@ class EmployeeRepositoryTest {
 		// 該当なし
 		assertEquals(target.sampleCount(3000, 4000), 0);
 	}
+
+	// ↓↓@Splate 単一JavaBean引数↓↓
+
+	@Test
+	void testQueryForListByCondition() {
+		// salaryMin=1700, salaryMax=2000 で3件
+		assertEquals(target.queryForListByCondition(condition(1700, 2000)).size(), 3);
+		// salaryMin=1701, salaryMax=1999 で1件
+		assertEquals(target.queryForListByCondition(condition(1701, 1999)).size(), 1);
+		// salaryMin=null, salaryMax=null で全3件
+		assertEquals(target.queryForListByCondition(condition(null, null)).size(), 3);
+		// 該当なし条件で空List
+		assertEquals(target.queryForListByCondition(condition(3000, 4000)).size(), 0);
+	}
+
+	@Test
+	void testSampleCountByCondition() {
+		// salaryMin=null, salaryMax=null で3件
+		assertEquals(target.sampleCountByCondition(condition(null, null)), 3);
+		// salaryMin=null, salaryMax=1999 で2件
+		assertEquals(target.sampleCountByCondition(condition(null, 1999)), 2);
+		// salaryMin=2000, salaryMax=null で1件
+		assertEquals(target.sampleCountByCondition(condition(2000, null)), 1);
+		// 該当なし条件で0件
+		assertEquals(target.sampleCountByCondition(condition(3000, 4000)), 0);
+	}
+
+	@Test
+	void testInsertByCommand() {
+		// JavaBean引数によるINSERT
+		EmployeeCreateCommand command = new EmployeeCreateCommand();
+		command.setId(4L);
+		command.setName("Test");
+		command.setSalary(3000);
+
+		int count = target.sampleInsertByCommand(command);
+		assertEquals(count, 1);
+
+		Optional<Employee> ret = target.findById(4L);
+		assertTrue(ret.isPresent());
+		assertEquals(ret.get().getId(), 4L);
+		assertEquals(ret.get().getName(), "Test");
+		assertEquals(ret.get().getSalary(), 3000);
+
+		// Splate経路でも確認
+		assertEquals(target.sampleCount(null, null), 4);
+	}
+
+	@Test
+	void testQueryForListByConditionNull() {
+		// nullの単一JavaBean引数はIllegalArgumentException
+		IllegalArgumentException ex = assertThrows(IllegalArgumentException.class,
+				() -> target.queryForListByCondition(null));
+		String msg = ex.getMessage().toLowerCase();
+		assertTrue(msg.contains("javabean") || msg.contains("bean"),
+				"Exception message should mention JavaBean/bean: " + ex.getMessage());
+		assertTrue(msg.contains("null"),
+				"Exception message should mention null: " + ex.getMessage());
+	}
+
+	private static EmployeeSearchCondition condition(Integer salaryMin, Integer salaryMax) {
+		EmployeeSearchCondition c = new EmployeeSearchCondition();
+		c.setSalaryMin(salaryMin);
+		c.setSalaryMax(salaryMax);
+		return c;
+	}
 }

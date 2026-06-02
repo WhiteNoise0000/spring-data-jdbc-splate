@@ -27,7 +27,17 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 	@Splate("/sql/sampleCount.sql")
 	long sampleCount(Integer salaryMin, Integer salaryMax);
-	
+
+	// 単一JavaBean引数
+	@Splate("/sql/sampleQuery.sql")
+	List<Employee> queryForListByCondition(EmployeeSearchCondition condition);
+
+	@Splate("/sql/sampleCount.sql")
+	long sampleCountByCondition(EmployeeSearchCondition condition);
+
+	@Splate("/sql/sampleInsert.sql")
+	int sampleInsertByCommand(EmployeeCreateCommand command);
+
 	// 標準クエリでTを直接返却
 	Employee findByName(String name);
 }

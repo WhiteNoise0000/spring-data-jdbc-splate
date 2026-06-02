@@ -59,9 +59,47 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 }
 ```
 
+### 単一JavaBean引数
+
+`@Splate` メソッドの引数が **単一のJavaBean** である場合、Beanの読み取り可能なJavaBeansプロパティが
+2Way-SQL内の同名バインドパラメータとして展開されます。
+splate 0.3 の `BeanPropertySqlTemplateContext` 相当の挙動です。
+
+```java
+public class EmployeeSearchCondition {
+  private Integer salaryMin;
+  private Integer salaryMax;
+  // getter / setter
+}
+
+public interface EmployeeRepository extends CrudRepository<Employee, Long> {
+
+  @Splate("/sql/sampleQuery.sql")
+  List<Employee> queryForListByCondition(EmployeeSearchCondition condition);
+}
+```
+
+例えば上記メソッド呼び出しでは、`condition.salaryMin` / `condition.salaryMax` が
+`salaryMin` / `salaryMax` としてSQLテンプレートから参照できます。
+
+#### 対応範囲
+
+- 単一JavaBean引数をサポート
+- 既存どおり、複数引数は **引数名** でSQLから参照
+- 単一のスカラー値引数（`Integer` / `String` など）は従来通り **引数名** で参照
+- JavaBeanのgetterプロパティがそのままバインドパラメータ名になる
+- 既存の `.sql` ファイルは変更不要（既存の2Way-SQLをそのまま流用可）
+
+#### 対象外
+
+- `null` の単一JavaBean引数（非対応。`IllegalArgumentException` を投げます）
+- 複数Bean引数
+- `Map` / `Collection` / `Iterable` / `Optional` / 配列 の引数展開
+- ネストしたBeanプロパティ（例：`condition.range.salaryMin` のような参照）
+
 ## 動作確認済み環境
 
-本リポジトリのビルド・テストは、以下の構成で確認しています（`./gradlew test` 9件成功）。
+本リポジトリのビルド・テストは、以下の構成で確認しています（`./gradlew test` テスト成功）。
 
 | 項目 | バージョン |
 | --- | --- |
@@ -89,10 +127,11 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 - 最低限のテストケースのみであり、バリエーション検討不足による<span style="color: red; ">不具合がまだ潜在している</span>と思われます。
 
-- splateの[基本的な使い方](https://mygreen.github.io/splate/howtouse.html)のうち、JavaBeanによるパラメータ指定は未サポートです。
-
 - 1レコード取得の戻り値型に`Optional<T>`ではなく`T`を指定する場合、クラス可視性はpublicとしてください。  
 →`T`のみ指定かつ可視性がpublicではない場合、`IllegalAccessError`が発生します。これはSpring Data JDBC本体も同様です。参考：[Issue #2](https://github.com/WhiteNoise0000/spring-data-jdbc-splate/issues/2)
+
+- 単一JavaBean引数（[対応範囲](#対応範囲)参照）の対象は単純なJavaBeansのみであり、
+Spring Boot 4.x への追従など、本文中に明記した以外の互換性は未検証です。
 
 - OSSライブラリ公開の経験等無く、様々なお作法に疎いので参考にとどめてください。
 
