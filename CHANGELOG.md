@@ -14,7 +14,4 @@
 
 ## 0.1.1
 
-- Maven Central公開設定の整備（publish workflow、Gradleプラグイン設定、GPG署名）
-- Maven Centralへの初回公開
-- Gradle設定の整理
-- Spring Boot 3.4.7対応
+- Maven Central公開済みの現行バージョン
