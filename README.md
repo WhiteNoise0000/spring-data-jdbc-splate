@@ -57,6 +57,32 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 }
 ```
 
+## 動作確認済み環境
+
+本リポジトリのビルド・テストは、以下の構成で確認しています（`./gradlew test` 9件成功）。
+
+| 項目 | バージョン |
+| --- | --- |
+| JDK | 17 |
+| Spring Boot | 3.5.2 |
+| Spring Data JDBC | Spring Boot 3.5.2 が管理するバージョン（`spring-boot-starter-data-jdbc` 経由） |
+| splate | 0.3 |
+
+ローカル動作確認は `src/test/java/test/EmployeeRepositoryTest.java` および `src/test/resources/sql/*.sql` の通りです。実プロジェクトに組み込む際は、上記と利用者環境の差分に応じて動作検証を行ってください。
+
+## 互換性に関する注意
+
+本ライブラリは Spring Data JDBC の以下の public API に依存して実装されています。
+
+- `org.springframework.data.jdbc.repository.support.JdbcRepositoryFactoryBean`
+- `org.springframework.data.jdbc.repository.support.JdbcRepositoryFactory`
+- `org.springframework.data.jdbc.core.convert.EntityRowMapper`
+- `org.springframework.data.jdbc.core.convert.JdbcConverter`
+- `org.springframework.data.repository.core.support.RepositoryFactorySupport`
+- `org.springframework.data.repository.query.QueryLookupStrategy`
+
+上記は public として公開されている API ですが、Spring Data JDBC のマイナーバージョン更新で API 形状が予告なく変更される可能性があります。Spring Boot もしくは Spring Data JDBC のメジャーバージョン（例：3.x → 4.x）へ更新する際は、本リポジトリの `./gradlew build`／`./gradlew test` を再実行して互換性を確認してください。
+
 ## 注意／制約／既知の不具合
 
 - 最低限のテストケースのみであり、バリエーション検討不足による<span style="color: red; ">不具合がまだ潜在している</span>と思われます。
