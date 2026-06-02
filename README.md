@@ -99,7 +99,7 @@ public interface EmployeeRepository extends CrudRepository<Employee, Long> {
 
 ## 動作確認済み環境
 
-本リポジトリのビルド・テストは、以下の構成で確認しています（`./gradlew test` 19件成功）。
+本リポジトリのビルド・テストは、以下の構成で確認しています（`./gradlew test` テスト成功）。
 
 | 項目 | バージョン |
 | --- | --- |
