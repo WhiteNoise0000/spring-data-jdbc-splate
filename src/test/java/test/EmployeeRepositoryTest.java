@@ -74,6 +74,9 @@ class EmployeeRepositoryTest {
 		assertEquals(ret.get().getId(), 4L);
 		assertEquals(ret.get().getName(), "Test");
 		assertEquals(ret.get().getSalary(), 3000);
+
+		// Splate経路でも確認
+		assertEquals(target.sampleCount(null, null), 4);
 	}
 
 	@Test
@@ -82,5 +85,39 @@ class EmployeeRepositoryTest {
 		assertEquals(target.sampleCount(1700, 2000), 3);
 	}
 
-	// TODO テストケース充実
+	@Test
+	void testQueryForListAll() {
+		// 条件なしで全件
+		assertEquals(target.queryForList(null, null).size(), 3);
+	}
+
+	@Test
+	void testQueryForListNoMatch() {
+		// 該当なしで空List
+		assertEquals(target.queryForList(3000, 4000).size(), 0);
+	}
+
+	@Test
+	void testCountAll() {
+		// 条件なし
+		assertEquals(target.sampleCount(null, null), 3);
+	}
+
+	@Test
+	void testCountLeftOnly() {
+		// 上限のみ
+		assertEquals(target.sampleCount(null, 1999), 2);
+	}
+
+	@Test
+	void testCountRightOnly() {
+		// 下限のみ
+		assertEquals(target.sampleCount(2000, null), 1);
+	}
+
+	@Test
+	void testCountNoMatch() {
+		// 該当なし
+		assertEquals(target.sampleCount(3000, 4000), 0);
+	}
 }
