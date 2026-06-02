@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.2.0 - 2026-06-02
+
 ### Added
 
 - `@Splate` メソッドで単一JavaBean引数をサポート
@@ -22,7 +24,6 @@
 ### Notes
 
 - Spring Boot 4.x対応は未検証です
-- 次のMaven Central公開は、機能追加を含む `v0.2.0` を想定しています
 
 ## 0.1.1
 
