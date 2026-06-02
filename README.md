@@ -4,6 +4,8 @@
 
 Spring Data JDBCを拡張し、2Way-SQL実行用の追加アノテーションを提供します。
 
+Spring Data JDBC の Repository を使いつつ、長いSQLや条件分岐SQLを `@Query` のJava文字列や `jdbc-named-queries.properties` ではなく、外部 `.sql` ファイルの2Way-SQLとして管理するための小さな拡張ライブラリです。MyBatis / Doma ほど大きな仕組みを導入せず、Spring Data JDBC の延長としてSQLファイルを扱いたいケースを想定しています。
+
 2Way-SQLの解析は、S2JDBC由来の[splate（エス・プレート）](https://mygreen.github.io/splate/)を用いています。
 
 > splate（エス・プレート）は、 2Way-SQL 機能のみを S2JDBC から分離し、使いやすくしたライブラリです。
